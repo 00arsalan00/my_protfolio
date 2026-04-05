@@ -1,0 +1,397 @@
+/* Base */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    background: #050505;
+    font-family: "Fira Code", monospace;
+    color: #00ff88;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Global Header */
+.site-header {
+    width: 100%;
+    max-width: 1100px;
+    padding: 1rem 1.5rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 1rem;
+    color: #e5ffe5;
+}
+
+.site-header-left {
+    flex: 2;
+    min-width: 0;
+}
+
+.ascii-name {
+    margin: 0;
+    font-size: 0.6rem;
+    line-height: 1.1;
+    white-space: pre;
+}
+
+.welcome-text {
+    margin: 0.4rem 0 0;
+    font-size: 0.9rem;
+    color: #9fffd0;
+}
+
+.site-header-right {
+    flex: 1;
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.header-photo-wrapper {
+    flex-shrink: 0;
+}
+
+.header-photo {
+    max-width: 110px;
+    width: 25vw;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 255, 136, 0.6);
+    object-fit: cover;
+}
+
+.ascii-computer {
+    margin: 0;
+    font-size: 0.65rem;
+    line-height: 1.1;
+    white-space: pre;
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at top, #1a1a1a 0, #020202 55%, #000 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.loading-inner {
+    text-align: left;
+    color: #00ff88;
+    padding: 1rem 1.5rem;
+}
+
+.loading-text {
+    min-height: 3rem;
+    white-space: pre-line;
+}
+
+.knight-frame {
+    margin-top: 1rem;
+    font-size: 0.7rem;
+    line-height: 1.1;
+    white-space: pre;
+}
+
+/* Terminal */
+.terminal-wrapper {
+    width: 100%;
+    max-width: 900px;
+    padding: 0.5rem 0.75rem 1.5rem;
+}
+
+.terminal {
+    width: 100%;
+    height: 70vh;
+    max-height: 640px;
+    min-height: 420px;
+    margin: 0 auto;
+    border-radius: 6px;
+    border: 1px solid #00aa55;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.25);
+    background: #020202;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Linux-style top bar */
+.terminal-header-linux {
+    padding: 0.35rem 0.75rem;
+    border-bottom: 1px solid #004422;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #050b07;
+}
+
+.terminal-title {
+    font-size: 0.8rem;
+    color: #9fffd0;
+}
+
+.terminal-status {
+    font-size: 0.75rem;
+    color: #4bd49a;
+}
+
+/* Body */
+.terminal-body {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    overflow-y: auto;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    scroll-behavior: smooth;
+}
+
+/* Input row */
+.terminal-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 0.9rem 0.75rem;
+    border-top: 1px solid #004422;
+}
+
+.prompt {
+    white-space: nowrap;
+    font-size: 0.85rem;
+}
+
+.terminal-input {
+    flex: 1;
+    min-width: 120px;
+    background: transparent;
+    border: none;
+    color: inherit;
+    font: inherit;
+    outline: none;
+}
+
+/* Cursor */
+.cursor {
+    width: 8px;
+    height: 1.1em;
+    background: #00ff88;
+    display: inline-block;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    50.01%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Output styling */
+.line {
+    margin: 0.1rem 0;
+}
+
+.command-line {
+    color: #9fffd0;
+}
+
+.error {
+    color: #ff5555;
+}
+
+.info {
+    color: #8be9fd;
+}
+
+.success {
+    color: #50fa7b;
+}
+
+.muted {
+    color: #777;
+}
+
+/* Photo inside terminal */
+.photo-block {
+    margin: 0.5rem 0;
+}
+
+.photo-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.photo-container img {
+    max-width: 130px;
+    width: 30vw;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 255, 136, 0.5);
+    object-fit: cover;
+}
+
+/* Themes */
+.theme-default {
+    --bg: #020202;
+    --fg: #00ff88;
+    --border: #00aa55;
+    --accent: #9fffd0;
+}
+
+.theme-black-white {
+    --bg: #050505;
+    --fg: #f5f5f5;
+    --border: #777;
+    --accent: #e0e0e0;
+}
+
+.theme-white-red {
+    --bg: #fdfdfd;
+    --fg: #b00020;
+    --border: #e57373;
+    --accent: #d32f2f;
+}
+
+.theme-yellow-black {
+    --bg: #221b00;
+    --fg: #ffeb3b;
+    --border: #ffb300;
+    --accent: #ffee58;
+}
+
+.theme-purple {
+    --bg: #150022;
+    --fg: #e1baff;
+    --border: #7b1fa2;
+    --accent: #ce93d8;
+}
+
+.theme-cyan {
+    --bg: #001921;
+    --fg: #8be9fd;
+    --border: #00bcd4;
+    --accent: #4dd0e1;
+}
+
+.theme-orange {
+    --bg: #201101;
+    --fg: #ffcc80;
+    --border: #ff9800;
+    --accent: #ffb74d;
+}
+
+/* Apply theme vars */
+.terminal {
+    background: var(--bg, #020202);
+    color: var(--fg, #00ff88);
+    border-color: var(--border, #00aa55);
+}
+
+.terminal-header-linux {
+    background: #050b07;
+}
+
+.cursor {
+    background: var(--fg, #00ff88);
+}
+
+/* Blog posts, projects, lists */
+.list-title {
+    color: #8be9fd;
+    margin-top: 0.4rem;
+}
+
+ul.compact-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0.3rem 0 0.5rem;
+}
+
+ul.compact-list li {
+    margin: 0.15rem 0;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .ascii-name {
+        font-size: 0.55rem;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        align-items: stretch;
+    }
+
+    .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .site-header-right {
+        align-self: stretch;
+        justify-content: flex-start;
+    }
+
+    .header-photo {
+        max-width: 90px;
+        width: 28vw;
+    }
+
+    .terminal-wrapper {
+        padding: 0.75rem 0.75rem 1.5rem;
+    }
+
+    .terminal {
+        height: 68vh;
+        max-height: none;
+        min-height: 360px;
+    }
+
+    .terminal-body {
+        font-size: 0.9rem;
+        padding: 0.6rem 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ascii-name {
+        font-size: 0.47rem;
+    }
+
+    .ascii-computer {
+        display: none;
+    }
+
+    .terminal {
+        height: 72vh;
+        border-radius: 4px;
+    }
+
+    .terminal-body {
+        font-size: 0.82rem;
+    }
+
+    .terminal-input-row {
+        padding-inline: 0.6rem;
+    }
+}

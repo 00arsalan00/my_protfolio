@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Mohammad Arsalan Rayeen | Terminal Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <!-- Global Header -->
+    <header class="site-header">
+        <div class="site-header-left">
+            <pre class="ascii-name">
+___  ___      _         _      ___                 _              ______                            
+|  \/  |     | |       | |    / _ \               | |             | ___ \                           
+| .  . | ___ | |__   __| |   / /_\ \_ __ ___  __ _| | __ _ _ __   | |_/ /__ _ _   _  ___  ___ _ __  
+| |\/| |/ _ \| '_ \ / _` |   |  _  | '__/ __|/ _` | |/ _` | '_ \  |    // _` | | | |/ _ \/ _ \ '_ \ 
+| |  | | (_) | | | | (_| |_  | | | | |  \__ \ (_| | | (_| | | | | | |\ \ (_| | |_| |  __/  __/ | | |
+\_|  |_/\___/|_| |_|\__,_(_) \_| |_/_|  |___/\__,_|_|\__,_|_| |_| \_| \_\__,_|\__, |\___|\___|_| |_|
+                                                                               __/ |                
+                                                                              |___/                 
+
+      </pre>
+            <p class="welcome-text">Welcome to my terminal portfolio.</p>
+        </div>
+        <div class="site-header-right">
+            <div class="header-photo-wrapper">
+                <img src="https://media.licdn.com/dms/image/v2/D5603AQGgZIDW_gJD7Q/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1722352555272?e=2147483647&v=beta&t=cbZXaRggLxFlm4h-MNG4Qpy3F5zbq_ib4qVB2kU3j_Y"
+                    alt="Profile photo of Mohammad Arsalan Rayeen" class="header-photo" />
+            </div>
+            <pre class="ascii-computer">
+
+      </pre>
+        </div>
+    </header>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-inner">
+            <div class="loading-text" id="loading-text"></div>
+            <pre class="knight-frame" id="knight-frame"></pre>
+        </div>
+    </div>
+
+    <main class="terminal-wrapper">
+        <section class="terminal" id="terminal">
+            <div class="terminal-header-linux">
+                <span class="terminal-title">arsalan@portfolio:~$</span>
+                <span class="terminal-status">TTY1 • Bash</span>
+            </div>
+            <div class="terminal-body" id="terminal-body">
+                <!-- Intro content gets injected here -->
+            </div>
+            <div class="terminal-input-row">
+                <span class="prompt">arsalan@portfolio:~$</span>
+                <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" autofocus />
+                <span class="cursor" id="cursor"></span>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
