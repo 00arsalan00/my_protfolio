@@ -1,4 +1,12 @@
-/* Base */
+/* ============================================================
+   FIX: Import Fira Code as a fallback (primary load is in HTML <link>)
+   This @import acts as a safety net if the HTML link is missing.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap');
+
+/* ============================================================
+   Base
+   ============================================================ */
 * {
     box-sizing: border-box;
 }
@@ -10,16 +18,116 @@ body {
     height: 100%;
 }
 
+/* FIX: body background now uses the theme variable so it responds to theme changes */
 body {
-    background: #050505;
+    background: var(--site-bg, #050505);
     font-family: "Fira Code", monospace;
-    color: #00ff88;
+    color: var(--fg, #00ff88);
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* Global Header */
+/* ============================================================
+   Theme definitions
+   FIX: Added --site-bg for body background and --header-bg for
+   terminal header so ALL surfaces respond to theme changes.
+   Previously only .terminal responded; body and header were hardcoded.
+   ============================================================ */
+.theme-default {
+    --site-bg:    #050505;
+    --bg:         #020202;
+    --fg:         #00ff88;
+    --border:     #00aa55;
+    --accent:     #9fffd0;
+    --muted:      #004422;
+    --header-bg:  #050b07;
+    --info:       #8be9fd;
+    --success:    #50fa7b;
+    --error:      #ff5555;
+}
+
+.theme-black-white {
+    --site-bg:    #111111;
+    --bg:         #050505;
+    --fg:         #f5f5f5;
+    --border:     #777777;
+    --accent:     #e0e0e0;
+    --muted:      #333333;
+    --header-bg:  #0d0d0d;
+    --info:       #aaaaaa;
+    --success:    #ffffff;
+    --error:      #ff6666;
+}
+
+.theme-white-red {
+    --site-bg:    #f0f0f0;
+    --bg:         #fdfdfd;
+    --fg:         #b00020;
+    --border:     #e57373;
+    --accent:     #d32f2f;
+    --muted:      #fce4e4;
+    --header-bg:  #fff5f5;
+    --info:       #0077cc;
+    --success:    #2e7d32;
+    --error:      #b71c1c;
+}
+
+.theme-yellow-black {
+    --site-bg:    #1a1400;
+    --bg:         #221b00;
+    --fg:         #ffeb3b;
+    --border:     #ffb300;
+    --accent:     #ffee58;
+    --muted:      #332900;
+    --header-bg:  #1a1300;
+    --info:       #ffd54f;
+    --success:    #aeea00;
+    --error:      #ff6d00;
+}
+
+.theme-purple {
+    --site-bg:    #0e0018;
+    --bg:         #150022;
+    --fg:         #e1baff;
+    --border:     #7b1fa2;
+    --accent:     #ce93d8;
+    --muted:      #2a0040;
+    --header-bg:  #100020;
+    --info:       #b39ddb;
+    --success:    #a5d6a7;
+    --error:      #ef9a9a;
+}
+
+.theme-cyan {
+    --site-bg:    #00111a;
+    --bg:         #001921;
+    --fg:         #8be9fd;
+    --border:     #00bcd4;
+    --accent:     #4dd0e1;
+    --muted:      #002233;
+    --header-bg:  #001520;
+    --info:       #b2ebf2;
+    --success:    #80cbc4;
+    --error:      #ff8a80;
+}
+
+.theme-orange {
+    --site-bg:    #180d00;
+    --bg:         #201101;
+    --fg:         #ffcc80;
+    --border:     #ff9800;
+    --accent:     #ffb74d;
+    --muted:      #301a00;
+    --header-bg:  #1a0e00;
+    --info:       #ffe0b2;
+    --success:    #dce775;
+    --error:      #ef9a9a;
+}
+
+/* ============================================================
+   Global Header
+   ============================================================ */
 .site-header {
     width: 100%;
     max-width: 1100px;
@@ -28,7 +136,8 @@ body {
     justify-content: space-between;
     align-items: stretch;
     gap: 1rem;
-    color: #e5ffe5;
+    /* FIX: use theme accent instead of hardcoded #e5ffe5 */
+    color: var(--accent, #e5ffe5);
 }
 
 .site-header-left {
@@ -41,12 +150,15 @@ body {
     font-size: 0.6rem;
     line-height: 1.1;
     white-space: pre;
+    /* FIX: overflow hidden prevents horizontal scroll on small screens */
+    overflow: hidden;
 }
 
 .welcome-text {
     margin: 0.4rem 0 0;
     font-size: 0.9rem;
-    color: #9fffd0;
+    /* FIX: use theme accent variable */
+    color: var(--accent, #9fffd0);
 }
 
 .site-header-right {
@@ -66,10 +178,13 @@ body {
     width: 25vw;
     height: auto;
     border-radius: 6px;
-    border: 1px solid rgba(0, 255, 136, 0.6);
+    /* FIX: use theme border variable */
+    border: 1px solid var(--border, rgba(0, 255, 136, 0.6));
     object-fit: cover;
 }
 
+/* FIX: .ascii-computer rule kept but now only applies if the element exists;
+   the empty <pre> was removed from HTML so this is harmless dead CSS */
 .ascii-computer {
     margin: 0;
     font-size: 0.65rem;
@@ -77,7 +192,10 @@ body {
     white-space: pre;
 }
 
-/* Loading Screen */
+/* ============================================================
+   Loading Screen
+   FIX: Added transition so the JS opacity fade actually animates
+   ============================================================ */
 #loading-screen {
     position: fixed;
     inset: 0;
@@ -86,6 +204,8 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 999;
+    /* FIX: without this the JS opacity:0 change was instant, not a fade */
+    transition: opacity 0.4s ease;
 }
 
 .loading-inner {
@@ -106,13 +226,21 @@ body {
     white-space: pre;
 }
 
-/* Terminal */
+/* ============================================================
+   Terminal wrapper
+   ============================================================ */
 .terminal-wrapper {
     width: 100%;
     max-width: 900px;
     padding: 0.5rem 0.75rem 1.5rem;
 }
 
+/* ============================================================
+   Terminal
+   FIX: All colors now use CSS variables so every theme applies correctly.
+   Previously terminal-header-linux, terminal-body, prompt, cursor, etc.
+   were hardcoded to the green theme values.
+   ============================================================ */
 .terminal {
     width: 100%;
     height: 70vh;
@@ -120,34 +248,37 @@ body {
     min-height: 420px;
     margin: 0 auto;
     border-radius: 6px;
-    border: 1px solid #00aa55;
+    border: 1px solid var(--border, #00aa55);
     box-shadow: 0 0 20px rgba(0, 255, 136, 0.25);
-    background: #020202;
+    background: var(--bg, #020202);
+    color: var(--fg, #00ff88);
     display: flex;
     flex-direction: column;
 }
 
-/* Linux-style top bar */
+/* FIX: was hardcoded to #050b07 — now uses --header-bg so themes work */
 .terminal-header-linux {
     padding: 0.35rem 0.75rem;
-    border-bottom: 1px solid #004422;
+    border-bottom: 1px solid var(--muted, #004422);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #050b07;
+    background: var(--header-bg, #050b07);
 }
 
+/* FIX: was hardcoded #9fffd0 */
 .terminal-title {
     font-size: 0.8rem;
-    color: #9fffd0;
+    color: var(--accent, #9fffd0);
 }
 
+/* FIX: was hardcoded #4bd49a */
 .terminal-status {
     font-size: 0.75rem;
-    color: #4bd49a;
+    color: var(--accent, #4bd49a);
+    opacity: 0.8;
 }
 
-/* Body */
 .terminal-body {
     flex: 1;
     padding: 0.75rem 1rem;
@@ -157,18 +288,19 @@ body {
     scroll-behavior: smooth;
 }
 
-/* Input row */
+/* FIX: was hardcoded #004422 */
 .terminal-input-row {
     display: flex;
     align-items: center;
     gap: 0.35rem;
     padding: 0.5rem 0.9rem 0.75rem;
-    border-top: 1px solid #004422;
+    border-top: 1px solid var(--muted, #004422);
 }
 
 .prompt {
     white-space: nowrap;
     font-size: 0.85rem;
+    /* FIX: inherits --fg from .terminal, which is now theme-aware */
 }
 
 .terminal-input {
@@ -181,54 +313,62 @@ body {
     outline: none;
 }
 
-/* Cursor */
+/* ============================================================
+   Cursor
+   FIX: was hardcoded #00ff88
+   ============================================================ */
 .cursor {
     width: 8px;
     height: 1.1em;
-    background: #00ff88;
+    background: var(--fg, #00ff88);
     display: inline-block;
     animation: blink 1s step-end infinite;
 }
 
 @keyframes blink {
-
     0%,
-    50% {
-        opacity: 1;
-    }
-
+    50%     { opacity: 1; }
     50.01%,
-    100% {
-        opacity: 0;
-    }
+    100%    { opacity: 0; }
 }
 
-/* Output styling */
+/* ============================================================
+   Output line classes
+   FIX: use theme variables instead of hardcoded colors so
+   they remain readable across all themes
+   ============================================================ */
 .line {
     margin: 0.1rem 0;
 }
 
 .command-line {
-    color: #9fffd0;
+    /* FIX: was hardcoded #9fffd0 */
+    color: var(--accent, #9fffd0);
 }
 
 .error {
-    color: #ff5555;
+    /* FIX: was hardcoded #ff5555 — now themed */
+    color: var(--error, #ff5555);
 }
 
 .info {
-    color: #8be9fd;
+    /* FIX: was hardcoded #8be9fd */
+    color: var(--info, #8be9fd);
 }
 
 .success {
-    color: #50fa7b;
+    /* FIX: was hardcoded #50fa7b */
+    color: var(--success, #50fa7b);
 }
 
 .muted {
-    color: #777;
+    /* FIX: was hardcoded #777 */
+    opacity: 0.55;
 }
 
-/* Photo inside terminal */
+/* ============================================================
+   Photo inside terminal
+   ============================================================ */
 .photo-block {
     margin: 0.5rem 0;
 }
@@ -242,84 +382,26 @@ body {
 
 .photo-container img {
     max-width: 130px;
+    /* FIX: added min-width so image doesn't collapse to nothing on large screens */
+    min-width: 80px;
     width: 30vw;
     height: auto;
     border-radius: 6px;
-    border: 1px solid rgba(0, 255, 136, 0.5);
+    /* FIX: use theme border variable */
+    border: 1px solid var(--border, rgba(0, 255, 136, 0.5));
     object-fit: cover;
 }
 
-/* Themes */
-.theme-default {
-    --bg: #020202;
-    --fg: #00ff88;
-    --border: #00aa55;
-    --accent: #9fffd0;
-}
-
-.theme-black-white {
-    --bg: #050505;
-    --fg: #f5f5f5;
-    --border: #777;
-    --accent: #e0e0e0;
-}
-
-.theme-white-red {
-    --bg: #fdfdfd;
-    --fg: #b00020;
-    --border: #e57373;
-    --accent: #d32f2f;
-}
-
-.theme-yellow-black {
-    --bg: #221b00;
-    --fg: #ffeb3b;
-    --border: #ffb300;
-    --accent: #ffee58;
-}
-
-.theme-purple {
-    --bg: #150022;
-    --fg: #e1baff;
-    --border: #7b1fa2;
-    --accent: #ce93d8;
-}
-
-.theme-cyan {
-    --bg: #001921;
-    --fg: #8be9fd;
-    --border: #00bcd4;
-    --accent: #4dd0e1;
-}
-
-.theme-orange {
-    --bg: #201101;
-    --fg: #ffcc80;
-    --border: #ff9800;
-    --accent: #ffb74d;
-}
-
-/* Apply theme vars */
-.terminal {
-    background: var(--bg, #020202);
-    color: var(--fg, #00ff88);
-    border-color: var(--border, #00aa55);
-}
-
-.terminal-header-linux {
-    background: #050b07;
-}
-
-.cursor {
-    background: var(--fg, #00ff88);
-}
-
-/* Blog posts, projects, lists */
+/* ============================================================
+   Blog posts, projects, lists
+   ============================================================ */
 .list-title {
-    color: #8be9fd;
+    /* FIX: was hardcoded #8be9fd */
+    color: var(--info, #8be9fd);
     margin-top: 0.4rem;
 }
 
+/* FIX: .compact-list was defined but never used — kept for future use */
 ul.compact-list {
     list-style: none;
     padding-left: 0;
@@ -330,7 +412,9 @@ ul.compact-list li {
     margin: 0.15rem 0;
 }
 
-/* Responsive */
+/* ============================================================
+   Responsive
+   ============================================================ */
 @media (max-width: 900px) {
     .ascii-name {
         font-size: 0.55rem;

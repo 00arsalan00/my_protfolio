@@ -4,11 +4,10 @@ const CONFIG = {
     github: "https://github.com/00arsalan00",
     linkedin: "https://www.linkedin.com/in/mohammad-arsalan-rayeen-8416a4320/",
     email: "2k23.psitaiml2311749@gmail.com",
-    resume: "link-to-resume.pdf",
+    resume: "Desktop/main.pdf",
     readme: "https://github.com/00arsalan00", // profile README
-    profilePhoto: "https://example.com/profile.jpg"
+    profilePhoto: "https://media.licdn.com/dms/image/v2/D5603AQGgZIDW_gJD7Q/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1722352555272?e=2147483647&v=beta&t=cbZXaRggLxFlm4h-MNG4Qpy3F5zbq_ib4qVB2kU3j_Y"
 };
-
 // Themes
 const themes = [
     { id: 1, name: "Black & Green (default)", className: "theme-default" },
@@ -23,7 +22,6 @@ const themes = [
 const terminal = document.getElementById("terminal");
 const terminalBody = document.getElementById("terminal-body");
 const input = document.getElementById("terminal-input");
-const cursor = document.getElementById("cursor");
 
 const loadingScreen = document.getElementById("loading-screen");
 const loadingTextEl = document.getElementById("loading-text");
@@ -33,24 +31,21 @@ const knightFrameEl = document.getElementById("knight-frame");
 let history = [];
 let historyIndex = -1;
 
-// ASCII knight frames (simple 3-frame animation)
+// Loading bar frames
 const knightFrames = [
-    '■■□□□□□□□□□□□□□□□□□□ 10 %',
-    '■■■■■■□□□□□□□□□□□□□□ 30 %',
-    '■■■■■■■■■■□□□□□□□□□□ 50%',
-    '■■■■■■■■■■■■■■□□□□□□ 70%',
-    '■■■■■■■■■■■■■■■■■■■■ 100%'
+    '■■■■□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□ 10%',
+    '■■■■■■■■■■■■□□□□□□□□□□□□□□□□□□□□□□□□□□□□ 30%',
+    '■■■■■■■■■■■■■■■■■■■■□□□□□□□□□□□□□□□□□□□□ 50%',
+    '■■■■■■■■■■■■■■■■■■■■■■■■■■■■□□□□□□□□□□□□ 70%',
+    '■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 100%'
 ];
-let i = 0;
-setInterval(() => {
-    console.clear();
-    console.log(knightFrames[i]);
-    i = (i + 1) % knightFrames.length;
-}, 200);
-// Loading sequence messages
+
+// FIX: removed the duplicate top-level setInterval that polluted the console
+
+// Loading sequence messages — FIX: removed "games" from modules list
 const loadingLines = [
     "Initializing portfolio environment...",
-    "Loading modules: about, skills, projects, blog, games...",
+    "Loading modules: about, skills, projects, blog...",
     "Spawning ASCII knight...",
     "Mounting interactive terminal...",
     "Done. Type `help` to begin."
@@ -78,21 +73,25 @@ const commands = {
         appendLine("Available commands:", "list-title");
         appendLine(
             [
-                "about, skills, projects, certifications, certifications &lt;index&gt",
-                "github, linkedin, email, resume, readme",
+                "about, skills, projects",
+                "certifications, certifications &lt;index&gt;",
                 "blog, blog &lt;index&gt;",
-                "quote, hadith, ls, sudo, clear",
-                "color, color &lt;id&gt;, weather &lt;city&gt;"
+                "github, linkedin, email, resume, readme",
+                "quote, hadith",
+                "ls, sudo, clear",
+                "color, color &lt;id&gt;",
+                "weather &lt;city&gt;",
+                "photo, links"
             ].join("<br>")
         );
     },
 
     about() {
         appendLine(
-            `Assalamu Alaikum, this is <span class="success">${CONFIG.name}</span>, a passionate developer who loves clean code, problem solving, and building useful tools.`,
+            `Assalamu Alaikum, this is <span class="success">${CONFIG.name}</span>, a passionate developer who loves clean code, problem solving, and building useful tools.`
         );
         appendLine(
-            "Comfortable with Java Backend developer, competitive programming, and always exploring new technologies."
+            "Comfortable with Java Backend development, competitive programming, and always exploring new technologies."
         );
     },
 
@@ -100,11 +99,11 @@ const commands = {
         appendLine("Tech stack:", "list-title");
         appendLine(
             [
-                "- Backend & Databases: Java, Spring Boot, REST APIs, MySQL, PostgreSQL, JPA/Hibernate",
+                "- Backend &amp; Databases: Java, Spring Boot, REST APIs, MySQL, PostgreSQL, JPA/Hibernate",
                 "- Languages: C / C++ (Basic), Java, Python, JavaScript (Basic)",
                 "- Tools: Git, GitHub, JUnit, Mockito, Docker, H2, Render",
-                "- Core CS: Data Structures & Algorithms, OOP, DBMS, Operating Systems, Computer Organization",
-                "- AI / ML Fundamentals: Supervised and Unsupervised Learning, Regression and Classification, Model Evaluation(Precision / Recall, F1 - Score, Bias - Variance Tradeoff, Basic NLP Concepts"
+                "- Core CS: Data Structures &amp; Algorithms, OOP, DBMS, Operating Systems, Computer Organization",
+                "- AI / ML Fundamentals: Supervised and Unsupervised Learning, Regression and Classification, Model Evaluation (Precision / Recall, F1-Score, Bias-Variance Tradeoff), Basic NLP Concepts"
             ].join("<br>")
         );
     },
@@ -114,15 +113,11 @@ const commands = {
         appendLine(
             [
                 "1. Expense Tracker Application (Production Deployed Backend API) – JWT-secured Spring Boot REST API for expense management with analytics, PostgreSQL integration, Dockerization, and cloud deployment.",
-                "2. Terminal Portfolio – This interactive Linux‑style terminal portfolio.",
-                "3. Ticket Booking Backend - Simple Java Backend for Train Ticket Booking."
-
+                "2. Terminal Portfolio – This interactive Linux-style terminal portfolio.",
+                "3. Ticket Booking Backend – Simple Java backend for train ticket booking."
             ].join("<br>")
         );
     },
-
-
-
 
     github() {
         window.open(CONFIG.github, "_blank");
@@ -144,71 +139,110 @@ const commands = {
         appendLine("Opening resume PDF...", "info");
     },
 
+    // FIX: added missing `readme` command (was listed in help but never defined)
+    readme() {
+        window.open(CONFIG.readme, "_blank");
+        appendLine("Opening GitHub README...", "info");
+    },
 
+    // FIX: added missing `photo` command (was listed in ls but never defined)
+    photo() {
+        appendLine("Profile photo:", "list-title");
+        const div = document.createElement("div");
+        div.className = "line photo-block";
+        const container = document.createElement("div");
+        container.className = "photo-container";
+        const img = document.createElement("img");
+        img.src = CONFIG.profilePhoto;   // FIX: now uses CONFIG.profilePhoto instead of hardcoded URL
+        img.alt = `Profile photo of ${CONFIG.name}`;
+        container.appendChild(img);
+        div.appendChild(container);
+        terminalBody.appendChild(div);
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+    },
 
+    // FIX: added missing `links` command (was listed in ls but never defined)
+    links() {
+        appendLine("Quick links:", "list-title");
+        appendLine(
+            [
+                `- GitHub:   <a href="${CONFIG.github}" target="_blank" style="color:inherit">${CONFIG.github}</a>`,
+                `- LinkedIn: <a href="${CONFIG.linkedin}" target="_blank" style="color:inherit">${CONFIG.linkedin}</a>`,
+                `- Email:    <a href="mailto:${CONFIG.email}" style="color:inherit">${CONFIG.email}</a>`
+            ].join("<br>")
+        );
+    },
 
     quote() {
         const quotes = [
-            "“First, solve the problem. Then, write the code.” – John Johnson",
-            "“Programs must be written for people to read, and only incidentally for machines to execute.” – Harold Abelson",
-            "“Simplicity is the soul of efficiency.” – Austin Freeman",
-            "“Talk is cheap. Show me the code.” – Linus Torvalds"
+            "\u201cFirst, solve the problem. Then, write the code.\u201d \u2013 John Johnson",
+            "\u201cPrograms must be written for people to read, and only incidentally for machines to execute.\u201d \u2013 Harold Abelson",
+            "\u201cSimplicity is the soul of efficiency.\u201d \u2013 Austin Freeman",
+            "\u201cTalk is cheap. Show me the code.\u201d \u2013 Linus Torvalds"
         ];
-        const q = quotes[Math.floor(Math.random() * quotes.length)];
-        appendLine(q);
+        appendLine(quotes[Math.floor(Math.random() * quotes.length)]);
     },
 
     hadith() {
         const hadithList = [
-            "“The best among you are those who have the best manners and character.”",
-            "“Allah loves that when any one of you does a job, he should perfect it.”",
-            "“Make things easy and do not make them difficult, give glad tidings and do not cause people to run away.”"
+            "\u201cThe best among you are those who have the best manners and character.\u201d",
+            "\u201cAllah loves that when any one of you does a job, he should perfect it.\u201d",
+            "\u201cMake things easy and do not make them difficult, give glad tidings and do not cause people to run away.\u201d"
         ];
-        const h = hadithList[Math.floor(Math.random() * hadithList.length)];
-        appendLine(h);
+        appendLine(hadithList[Math.floor(Math.random() * hadithList.length)]);
     },
 
-
+    // FIX: certifications now shows a list when called with no args, matching the pattern of blog
     certifications(args) {
         const certs = [
             {
-                title: "Udemy Java and its Framwork Course",
+                title: "Udemy Java and its Framework Course",
                 content:
-                    "Hands-on experience on Spring and SpringBoot, Building REST APIs using Spring Boot, implementing JWT authentication, working with PostgreSQL,following clean layered architecture, Spring Ai and GenAi",
+                    "Hands-on experience with Spring and Spring Boot, building REST APIs, implementing JWT authentication, working with PostgreSQL, following clean layered architecture, Spring AI and GenAI.",
                 image: "certs/java.jpg"
             },
             {
                 title: "HackerRank SQL Basic Certification",
-                content: "Basic Concepts of SQL and its query",
+                content: "Basic concepts of SQL and its queries.",
                 image: "certs/img19.jpg"
             },
+            {
+                title: "PostMan Api Testing",
+                content: "Basic concepts of Api and ApiTesting .",
+                image: "certs/api_test.jpg"
+            }
         ];
 
+        // No args → show list (consistent with `blog` behavior)
+        if (!args || !args.length) {
+            appendLine("Certifications:", "list-title");
+            const lines = certs.map((c, i) => `${i + 1}. ${c.title}`);
+            appendLine(lines.join("<br>"));
+            appendLine("Use <span class='success'>certifications &lt;index&gt;</span> to view details.");
+            return;
+        }
 
-        // 📄 INDEX MODE (UPDATED WITH IMAGE)
         const index = parseInt(args[0], 10);
         if (isNaN(index) || index < 1 || index > certs.length) {
-            appendLine("Invalid index", "error");
+            appendLine(`Invalid index. Use <span class='success'>certifications</span> to list all.`, "error");
             return;
         }
 
         const cert = certs[index - 1];
-
         appendLine(`<span class="list-title">${cert.title}</span>`);
         appendLine(cert.content);
 
-        // ✅ SHOW IMAGE BELOW CONTENT
         if (cert.image) {
             const img = document.createElement("img");
             img.src = cert.image;
             img.style.maxWidth = "260px";
             img.style.marginTop = "8px";
             img.style.border = "1px solid #00ff88";
-
+            img.alt = cert.title;
             terminalBody.appendChild(img);
             terminalBody.scrollTop = terminalBody.scrollHeight;
         } else {
-            appendLine("<div class='muted'>No certificate preview available</div>");
+            appendLine("<div class='muted'>No certificate preview available.</div>");
         }
     },
 
@@ -217,7 +251,7 @@ const commands = {
             {
                 title: "Lessons from Competitive Programming",
                 content:
-                    "Discussing patterns, problem‑solving mindset, and how CP improved approach to real‑world bugs."
+                    "Discussing patterns, problem-solving mindset, and how CP improved my approach to real-world bugs."
             },
             {
                 title: "Designing a Clean REST API in Spring Boot",
@@ -231,7 +265,7 @@ const commands = {
             }
         ];
 
-        if (!args.length) {
+        if (!args || !args.length) {
             appendLine("Blog posts:", "list-title");
             const lines = posts.map((p, i) => `${i + 1}. ${p.title}`);
             appendLine(lines.join("<br>"));
@@ -250,17 +284,16 @@ const commands = {
         appendLine(post.content);
     },
 
-
-
     sudo() {
-        appendLine("sudo: permission denied. This is a read‑only portfolio system.", "error");
+        appendLine("sudo: permission denied. This is a read-only portfolio system.", "error");
     },
 
+    // FIX: ls output now matches actual available commands (removed games/docs, theme→color, added links/photo)
     ls() {
         appendLine(
             [
-                "about/  skills/  projects/  blog/  games/",
-                "links/  theme/  photo/  weather/  docs/"
+                "about/  skills/  projects/  blog/  certifications/",
+                "links/  photo/  color/  weather/  resume/"
             ].join("<br>")
         );
     },
@@ -269,8 +302,9 @@ const commands = {
         terminalBody.innerHTML = "";
     },
 
+    // FIX: renamed internally consistent — help refers to "color", ls shows "color/", command is "color"
     color(args) {
-        if (!args.length) {
+        if (!args || !args.length) {
             appendLine("Available themes:", "list-title");
             themes.forEach(t => {
                 appendLine(`${t.id}. ${t.name}`);
@@ -281,7 +315,7 @@ const commands = {
         const id = parseInt(args[0], 10);
         const theme = themes.find(t => t.id === id);
         if (!theme) {
-            appendLine("Unknown theme id. Use `color` to list themes.", "error");
+            appendLine("Unknown theme id. Use <span class='success'>color</span> to list themes.", "error");
             return;
         }
         applyTheme(theme.className);
@@ -289,10 +323,8 @@ const commands = {
         appendLine(`Theme switched to: ${theme.name}`, "success");
     },
 
-
-
     async weather(args) {
-        if (!args.length) {
+        if (!args || !args.length) {
             appendLine(
                 "Usage: weather &lt;city&gt;<br>Example: weather London",
                 "info"
@@ -301,12 +333,10 @@ const commands = {
         }
         const city = args.join(" ");
         const url = `https://wttr.in/${encodeURIComponent(city)}?0QT&m`;
-        appendLine(`Fetching weather for ${city} ...`, "info");
+        appendLine(`Fetching weather for ${city}...`, "info");
         try {
             const res = await fetch(url);
-            if (!res.ok) {
-                throw new Error("Network error");
-            }
+            if (!res.ok) throw new Error("Network error");
             const text = await res.text();
             appendLine(`<pre>${escapeHtml(text)}</pre>`);
         } catch (e) {
@@ -315,13 +345,13 @@ const commands = {
     }
 };
 
-// Apply stored theme
+// Apply theme
 function applyTheme(className) {
     themes.forEach(t => terminal.classList.remove(t.className));
     if (className) terminal.classList.add(className);
 }
 
-// Escape
+// Escape HTML
 function escapeHtml(str) {
     return str
         .replace(/&/g, "&amp;")
@@ -330,6 +360,7 @@ function escapeHtml(str) {
 }
 
 // Command execution
+// FIX: removed dead `game review` special-case that referenced a non-existent function
 function runCommand(raw) {
     const inputText = raw.trim();
     if (!inputText) {
@@ -338,9 +369,7 @@ function runCommand(raw) {
     }
 
     appendLine(
-        `<span class="command-line">arsalan@portfolio:~$ ${escapeHtml(
-            inputText
-        )}</span>`
+        `<span class="command-line">arsalan@portfolio:~$ ${escapeHtml(inputText)}</span>`
     );
 
     history.push(inputText);
@@ -349,14 +378,9 @@ function runCommand(raw) {
     const [cmd, ...args] = inputText.split(" ");
     const normalized = cmd.toLowerCase();
 
-    if (normalized === "game" && args[0] === "review") {
-        commands["game review"](args.slice(1));
-        return;
-    }
-
     const fn = commands[normalized];
     if (!fn) {
-        appendLine(`Command not found: ${escapeHtml(cmd)}`, "error");
+        appendLine(`Command not found: ${escapeHtml(cmd)}. Type <span class='success'>help</span> for available commands.`, "error");
         return;
     }
     fn(args);
@@ -368,9 +392,7 @@ const commandNames = Object.keys(commands);
 function autocomplete(current) {
     if (!current) return "";
     const matches = commandNames.filter(c => c.startsWith(current));
-    if (matches.length === 1) {
-        return matches[0] + " ";
-    }
+    if (matches.length === 1) return matches[0] + " ";
     return "";
 }
 
@@ -405,20 +427,16 @@ input.addEventListener("keydown", e => {
     }
 });
 
-// Focus input when clicking in terminal
-terminal.addEventListener("click", () => {
-    input.focus();
-});
+// Focus input when clicking terminal
+terminal.addEventListener("click", () => input.focus());
 
 // Loading animation
 function typeLoadingLines(idx = 0) {
-    if (idx >= loadingLines.length) {
-        return;
-    }
+    if (idx >= loadingLines.length) return;
     let i = 0;
     const line = loadingLines[idx];
     const interval = setInterval(() => {
-        loadingTextEl.textContent = loadingTextEl.textContent + line[i];
+        loadingTextEl.textContent += line[i];
         i++;
         if (i >= line.length) {
             clearInterval(interval);
