@@ -78,7 +78,7 @@ const commands = {
                 "about, skills, projects",
                 "certifications, certifications &lt;index&gt;",
                 "blog, blog &lt;index&gt;",
-                "github, linkedin, email, resume, readme",
+                "github, linkedin,leetcode, email, resume, readme",
                 "quote, hadith",
                 "ls, sudo, clear",
                 "color, color &lt;id&gt;",
