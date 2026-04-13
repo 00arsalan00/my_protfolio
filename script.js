@@ -4,9 +4,11 @@ const CONFIG = {
     github: "https://github.com/00arsalan00",
     linkedin: "https://www.linkedin.com/in/mohammad-arsalan-rayeen-8416a4320/",
     email: "2k23.psitaiml2311749@gmail.com",
-    resume: "Desktop/main.pdf",
+    resume: "./main.pdf",
+    leetcode: "https://leetcode.com/u/MohammadArsalanRayeen/",
     readme: "https://github.com/00arsalan00", // profile README
     profilePhoto: "https://media.licdn.com/dms/image/v2/D5603AQGgZIDW_gJD7Q/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1722352555272?e=2147483647&v=beta&t=cbZXaRggLxFlm4h-MNG4Qpy3F5zbq_ib4qVB2kU3j_Y"
+
 };
 // Themes
 const themes = [
