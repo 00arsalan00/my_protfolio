@@ -131,6 +131,11 @@ const commands = {
         appendLine("Opening LinkedIn...", "info");
     },
 
+    leetcode() {
+        window.open(CONFIG.leetcode, "_blank");
+        appendLine("Opening Leetcode...", "info");
+    },
+
     email() {
         window.location.href = `mailto:${CONFIG.email}`;
         appendLine("Opening default mail client...", "info");
